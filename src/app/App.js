@@ -20,16 +20,12 @@ export default function App() {
           </div>
           <div className="links">
             <NavLink activeClassName="active" to="/sort"><button>Sorting</button></NavLink>
-            <NavLink activeClassName="active" to="/search"><button>Searching</button></NavLink>
             <NavLink activeClassName="active" to="/path"><button>Path Finding</button></NavLink>
           </div>
         </div>
           <Switch>
             <Route path="/sort">
               <Sort />
-            </Route>
-            <Route path="/search">
-              <Search />
             </Route>
             <Route path="/path">
               <Path />
