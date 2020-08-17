@@ -25,7 +25,6 @@ class Sort extends Component {
               className="array-bar"
               key={idx}
               style={{
-                backgroundColor: 'rgb(196, 135, 231)',
                 height: `${value}px`,
               }}></div>
           ))}
@@ -37,13 +36,13 @@ class Sort extends Component {
           <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
           <button onClick={() => this.insertionSort()}>Insertion Sort</button>
           <div className="speed">
-          <button className="down" onClick={() => this.setSpeed(10, -1)}>-</button>
-          <div className="text">x{ this.state.speedText }</div>
-          <button className="up"onClick={() => this.setSpeed(-10, 1)}>+</button>
+            <button className="down" onClick={() => this.setSpeed(10, -1)}>-</button>
+            <div className="text">x{ this.state.speedText }</div>
+            <button className="up"onClick={() => this.setSpeed(-10, 1)}>+</button>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   setArray() {
@@ -92,6 +91,49 @@ class Sort extends Component {
       const arrayBars = document.getElementsByClassName('array-bar');
       arrayBars[i].style.backgroundColor = 'rgb(196, 135, 231)';
       arrayBars[i].style.height = `${this.state.array[i]}px`;
+    }
+    const animations = quickSortAlg(this.state.array);
+    for (let i=0; i<animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const high = animations[i][0];
+      const j = animations[i][1];
+      const k = animations[i][2];
+      console.log(animations[i]);
+      setTimeout(() => {
+        if (high === -1) {
+          if(animations[i-1][0] !== -1) {
+            arrayBars[animations[i-1][0]].style.backgroundColor = 'rgb(196, 135, 231)';
+            arrayBars[animations[i-1][1]].style.backgroundColor = 'rgb(196, 135, 231)';
+            arrayBars[animations[i-1][2]].style.backgroundColor = 'rgb(196, 135, 231)';
+          }
+          else arrayBars[animations[i-1][1]].style.backgroundColor = 'rgb(196, 135, 231)';
+          arrayBars[j].style.backgroundColor = 'blue';
+          arrayBars[j].style.height = `${animations[i][3]}px`;
+          arrayBars[k].style.height = `${animations[i][4]}px`;
+        }
+        else {
+          if (i>0) {
+            if(animations[i-1][0] === -1) arrayBars[animations[i-1][1]].style.backgroundColor = 'rgb(196, 135, 231)';
+            else {
+              arrayBars[animations[i-1][1]].style.backgroundColor = 'rgb(196, 135, 231)';
+              arrayBars[animations[i-1][2]].style.backgroundColor = 'rgb(196, 135, 231)';
+            }
+          }
+          arrayBars[high].style.backgroundColor = 'green';
+          arrayBars[j].style.backgroundColor = 'red';
+          arrayBars[j].style.height = `${animations[i][3]}px`;
+          arrayBars[k].style.backgroundColor = 'red';
+          arrayBars[k].style.height = `${animations[i][4]}px`;
+        }
+        if(i+1 === animations.length) {
+          for (let j=0; j<this.state.array.length; j++) {
+            setTimeout(() => {
+              if(j === 0) arrayBars[animations[i][1]].style.backgroundColor = 'rgb(196, 135, 231)';
+              arrayBars[j].style.backgroundColor = 'green';
+            }, j*this.state.speed)
+          }
+        }
+      }, i*this.state.speed)
     }
   }
 
