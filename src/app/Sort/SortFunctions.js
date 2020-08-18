@@ -1,3 +1,68 @@
+export function mergeSortAlg(array) {
+    let arrayCopy = array.slice();
+    let animations = [];
+
+    console.log(arrayCopy);
+    mergeSort(animations, arrayCopy, 0, arrayCopy.length -1);
+    console.log(arrayCopy);
+
+    return animations;
+}
+
+function mergeSort(animations, array, l, r) {
+    if (l < r) { 
+        // Find the middle point 
+        let m = Math.floor((l + r) / 2); 
+
+        // Sort first and second halves 
+        mergeSort(animations, array, l, m); 
+        mergeSort(animations, array, m + 1, r); 
+
+        // Merge the sorted halves 
+        merge(animations, array, l, m, r); 
+    } 
+}
+function merge(animations, array, l, m, r) {
+    let n1 = m - l + 1;
+    let n2 = r - m;
+    let L = [];
+    let R = [];
+
+    for (let i = 0; i < n1; i++) {
+        L[i] = array[l + i];
+    }
+    for (let j = 0; j < n2; j++) {
+        R[j] = array[m + 1 + j];
+    }
+    let i = 0, j = 0;
+
+    let k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            array[k] = L[i];
+            i++;
+        }
+        else { 
+            array[k] = R[j];
+            j++;
+        }
+        animations.push([k, array[k], l+i, m+j]);
+        k++;
+    }
+    while (i < n1) {
+        array[k] = L[i];
+        animations.push([k, array[k]]);
+        i++;
+        k++;
+    }
+    while (j < n2) {
+        array[k] = R[j];
+        animations.push([k, array[k]]);
+        j++;
+        k++;
+    }
+}
+
 export function quickSortAlg(array) {
     let arrayCopy = array.slice();
     let animations = [];
