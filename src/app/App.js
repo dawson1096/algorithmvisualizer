@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import Sort from './Sort/Sort';
-import Search from './Search/Search';
 import Path from './Path/Path';
 import {
   BrowserRouter as Router,
