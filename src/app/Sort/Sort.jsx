@@ -49,7 +49,7 @@ class Sort extends Component {
   setArray() {
     const array = [];
     for (let i = 0; i < 120; i++) {
-      array.push(randInterval(5, 500));
+      array.push(randInterval(5, 480));
       if(this.state.array.length > 0) {
         const arrayBars = document.getElementsByClassName('array-bar');
         arrayBars[i].style.backgroundColor = 'rgb(196, 135, 231)';
